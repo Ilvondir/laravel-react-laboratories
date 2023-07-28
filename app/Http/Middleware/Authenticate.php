@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use http\Cookie;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
 
