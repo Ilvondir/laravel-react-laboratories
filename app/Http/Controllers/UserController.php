@@ -12,7 +12,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return User::get();
+        return User::paginate(5);
     }
 
 
