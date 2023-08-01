@@ -31,7 +31,7 @@ class RoleController extends Controller
      */
     public function show(int $id)
     {
-        return new RoleResource(Role::find($id));
+        return new RoleResource(Role::with("permissions")->find($id));
     }
 
     /**
