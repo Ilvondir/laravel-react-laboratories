@@ -14,6 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $this->authorize("view", "roles");
         return RoleResource::collection(Role::all());
     }
 
@@ -22,6 +23,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize("edit", "roles");
         $role = Role::create($request->only("name"));
         $role->permissions()->attach($request->input("permissions"));
         return response(new RoleResource($role->load("permissions")), Response::HTTP_CREATED);
@@ -32,6 +34,7 @@ class RoleController extends Controller
      */
     public function show(int $id)
     {
+        $this->authorize("view", "roles");
         return new RoleResource(Role::with("permissions")->find($id));
     }
 
@@ -40,6 +43,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, int $id)
     {
+        $this->authorize("edit", "roles");
         $role = Role::find($id);
         $role->update($request->only("name"));
         $role->permissions()->sync($request->input("permissions"));
@@ -51,6 +55,7 @@ class RoleController extends Controller
      */
     public function destroy(int $id)
     {
+        $this->authorize("edit", "roles");
         Role::destroy($id);
 
         return response(null, Response::HTTP_NO_CONTENT);

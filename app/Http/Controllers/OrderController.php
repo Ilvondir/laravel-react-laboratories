@@ -11,16 +11,20 @@ class OrderController extends Controller
 {
     public function index()
     {
+        $this->authorize("view", "orders");
         return OrderResource::collection(Order::with("orderItems")->paginate());
     }
 
     public function show(int $id)
     {
+        $this->authorize("view", "orders");
         return new OrderResource(Order::with("orderItems")->find($id));
     }
 
     public function export()
     {
+        $this->authorize("view", "orders");
+
         $headers = [
             "Content-type" => "text/csv",
             "Content-Disposition" => "attachment; filename=orders.csv",
@@ -51,6 +55,8 @@ class OrderController extends Controller
 
     public function chart()
     {
+        $this->authorize("view", "orders");
+
         //SELECT DATE_FORMAT( orders.created_at, '%Y-%m-%d' ) AS date, SUM( order_items.price * order_items.quantity ) AS sum
         //FROM orders
         //INNER JOIN order_items
