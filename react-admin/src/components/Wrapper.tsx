@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Nav from "./Nav";
 import Menu from "./Menu";
-import Dashboard from "../pages/Dashboard";
-import Users from "../pages/Users";
 
 
 class Wrapper extends Component<{ children: any }> {
