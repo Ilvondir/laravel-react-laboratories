@@ -9,7 +9,7 @@ const Nav = () => {
     useEffect(() => {
         (
             async () => {
-                const response = await axios.get('http://localhost:8000/api/user', {withCredentials: true});
+                const response = await axios.get('user');
                 setUser(response.data);
             }
         )()
