@@ -1,30 +1,29 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import Nav from "./Nav";
 import Menu from "./Menu";
+import axios from "axios";
+import {Navigate} from "react-router-dom";
 
 
-class Wrapper extends Component<{ children: any }> {
-    render() {
-        let {children} = this.props;
-        return (
-            <>
-                <Nav/>
+const Wrapper = ({children}: any) => {
+    return (
+        <>
+            <Nav/>
 
-                <div className="container-fluid">
-                    <div className="row">
+            <div className="container-fluid">
+                <div className="row">
 
-                        <Menu/>
+                    <Menu/>
 
-                        <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-                            {children}
+                        {children}
 
-                        </main>
-                    </div>
+                    </main>
                 </div>
-            </>
-        )
-    }
+            </div>
+        </>
+    )
 }
 
 export default Wrapper;
