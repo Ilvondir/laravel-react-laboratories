@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Nav from "./Nav";
 import Menu from "./Menu";
-import axios from "axios";
-import {Navigate} from "react-router-dom";
-
 
 const Wrapper = ({children}: any) => {
     return (
