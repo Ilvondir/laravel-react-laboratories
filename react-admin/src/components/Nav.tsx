@@ -17,6 +17,7 @@ const Nav = () => {
                         response.data.first_name,
                         response.data.last_name,
                         response.data.email,
+                        response.data.role
                     ));
 
                 } catch (e) {
