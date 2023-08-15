@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize("view", "users");
-        return UserResource::collection(User::with('role')->paginate(5));
+        return UserResource::collection(User::with('role')->paginate());
     }
 
 
