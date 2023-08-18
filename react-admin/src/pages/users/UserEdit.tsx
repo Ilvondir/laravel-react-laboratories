@@ -4,7 +4,7 @@ import axios from "axios";
 import {Role} from "../../models/role";
 import {Navigate, useParams} from "react-router-dom";
 
-const UserEdit = (props: any) => {
+const UserEdit = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
