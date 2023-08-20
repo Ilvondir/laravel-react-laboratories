@@ -3,6 +3,7 @@ import Wrapper from '../../components/Wrapper';
 import axios from "axios";
 import {Product} from '../../models/product';
 import {Link} from "react-router-dom";
+import Paginator from '../../components/Paginator';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -25,15 +26,6 @@ const Products = () => {
             setProducts(products.filter((p: Product) => p.id !== id));
         }
     }
-
-    const next = () => {
-        if (page < lastPage) setPage(page + 1);
-    }
-
-    const previous = () => {
-        if (page > 1) setPage(page - 1);
-    }
-
 
     return (
         <Wrapper>
@@ -80,16 +72,7 @@ const Products = () => {
                 </table>
             </div>
 
-            <nav className='d-flex justify-content-center align-items-center'>
-                <ul className="pagination">
-                    <li className='page-item'>
-                        <a className='page-link' onClick={previous}>Previous</a>
-                    </li>
-                    <li className='page-item'>
-                        <a className='page-link' onClick={next}>Next</a>
-                    </li>
-                </ul>
-            </nav>
+            <Paginator page={page} lastPage={lastPage} pageChanged={setPage}/>
 
         </Wrapper>
     );
