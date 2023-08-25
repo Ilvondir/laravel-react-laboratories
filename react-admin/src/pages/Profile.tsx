@@ -1,8 +1,11 @@
-import React, {SyntheticEvent, useEffect, useState} from 'react';
+import React, {Dispatch, SyntheticEvent, useEffect, useState} from 'react';
 import Wrapper from "../components/Wrapper";
 import axios from "axios";
+import {connect} from "react-redux";
+import {User} from "../models/user";
+import {setUser} from "../redux/actions/setUserAction";
 
-const Profile = () => {
+const Profile = (props: { user: User, setUser: (user: User) => void }) => {
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -10,32 +13,37 @@ const Profile = () => {
     const [confirm, setConfirm] = useState('');
 
     useEffect(() => {
-        (
-            async () => {
-                const response = await axios.get('user');
-                setFirstName(response.data.first_name);
-                setLastName(response.data.last_name);
-                setEmail(response.data.email);
-            }
-        )();
-    }, []);
+        setFirstName(props.user.first_name);
+        setLastName(props.user.last_name);
+        setEmail(props.user.email);
+    }, [props.user]);
 
     const infoSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.put('user/info', {
+        const response = await axios.put('users/info', {
             first_name,
             last_name,
             email
-        })
+        });
+
+        props.setUser(new User(
+            response.data.id,
+            response.data.first_name,
+            response.data.last_name,
+            response.data.email,
+            response.data.role
+        ));
     }
 
     const passwordSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await axios.put('user/password', {
+        await axios.put('users/password', {
             password,
             password_confirm: confirm
-        })
+        });
+
+
     }
 
 
@@ -88,4 +96,14 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default connect(
+    (state: { user: User }) => {
+        return {
+            user: state.user
+        };
+    }, (dispatch: Dispatch<any>) => {
+        return {
+            setUser: (user: User) => dispatch(setUser(user))
+        }
+    }
+)(Profile);
